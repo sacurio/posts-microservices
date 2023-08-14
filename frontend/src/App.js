@@ -7,7 +7,7 @@ function App() {
 
     useEffect(() => {
         (async () => {
-            const response = await fetch('http://localhost:8000/api/posts');
+            const response = await fetch('http://localhost:3010/api/posts');
 
             const content = await response.json()
 
@@ -18,7 +18,7 @@ function App() {
     const createPost = async e => {
         e.preventDefault();
 
-        const res = await fetch('http://localhost:8000/api/posts', {
+        const res = await fetch('http://localhost:3010/api/post', {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -28,6 +28,7 @@ function App() {
         });
 
         const createdPost = await res.json();
+        createdPost.comments = [];
 
         setPosts([...posts, createdPost]);
     }
@@ -35,7 +36,7 @@ function App() {
     const createComment = async (e, post_id) => {
         e.preventDefault();
 
-        const response = await fetch('http://localhost:8001/api/comments', {
+        const response = await fetch('http://localhost:3020/api/comments', {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
